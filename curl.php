@@ -33,7 +33,7 @@ class curl{
         curl_setopt($this->ch, CURLOPT_URL, $this->make_url($url));
         $data = curl_exec($this->ch);
 
-        return $data;
+        return $this->process_result($data);
     }
 
     //для склейки
@@ -43,6 +43,13 @@ class curl{
             : $url;
 
         return $this->host . $url;
+    }
+
+    public function ssl($act){
+        curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, $act);
+        curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, $act);
+
+        return $this;
     }
 
     //отделение заголовков от тела сообщения
